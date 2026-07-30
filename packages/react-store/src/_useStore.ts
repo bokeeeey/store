@@ -28,7 +28,7 @@ export function _useStore<
 >(
   store: Store<TState, TActions>,
   selector: (state: NoInfer<TState>) => TSelected,
-  options?: UseSelectorOptions<TSelected>,
+  options?: UseSelectorOptions<TSelected, TState>,
 ): [
   TSelected,
   [TActions] extends [never] ? Store<TState>['setState'] : TActions,

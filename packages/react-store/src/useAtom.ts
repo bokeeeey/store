@@ -15,7 +15,7 @@ import type { UseSelectorOptions } from './useSelector'
  */
 export function useAtom<TValue>(
   atom: Atom<TValue>,
-  options?: UseSelectorOptions<TValue>,
+  options?: UseSelectorOptions<TValue, TValue>,
 ): [TValue, Atom<TValue>['set']] {
   const value = useSelector(atom, undefined, options)
 

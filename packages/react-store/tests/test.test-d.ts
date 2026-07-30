@@ -44,6 +44,21 @@ test('useSelector infers value from mutable and readonly atoms', () => {
   ).toExtend<number>()
 })
 
+test('useSelector getServerSnapshot returns the source value', () => {
+  const cart = createStore({ items: ['apple'] })
+
+  expectTypeOf(
+    useSelector(cart, (state) => state.items.length, {
+      getServerSnapshot: () => ({ items: ['apple'] }),
+    }),
+  ).toExtend<number>()
+
+  // @ts-expect-error getServerSnapshot must return the source type, not the selected type
+  useSelector(cart, (state) => state.items.length, {
+    getServerSnapshot: () => 1,
+  })
+})
+
 test('useAtom only accepts writable atoms', () => {
   const writableAtom = createAtom(12)
   const readonlyAtom = createAtom(() => 24)
